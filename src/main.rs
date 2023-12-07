@@ -96,4 +96,29 @@ fn day6(input: String) {
     }
 
     println!("The product of the number of winning strategies in each race is: {}", wins.iter().product::<usize>());
+
+    // Part 2
+    let correct_length = race_data[0].iter()
+        .map(|n| n.to_string())
+        .collect::<Vec<_>>()
+        .join("")
+        .parse::<usize>()
+        .unwrap();
+    let correct_record = race_data[1].iter()
+        .map(|n| n.to_string())
+        .collect::<Vec<_>>()
+        .join("")
+        .parse::<usize>()
+        .unwrap();
+
+    let mut winning_strats = 0;
+    for time_held in 0..correct_length + 1 {
+        let distance = time_held * (correct_length - time_held);
+
+        if distance > correct_record {
+            winning_strats += 1;
+        }
+    }
+
+    println!("There are {} ways to beat the actual race.", winning_strats);
 }
